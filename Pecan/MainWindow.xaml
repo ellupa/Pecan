@@ -6,29 +6,11 @@
         xmlns:local="clr-namespace:Pecan"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Window.Resources>
-        <Style TargetType="Button">
-            <Setter Property="Background" Value="White"/>
-            <Setter Property="FocusVisualStyle">
-                <Setter.Value>
-                    <Style TargetType="Control">
-                        <Setter Property="Template">
-                            <Setter.Value>
-                                <ControlTemplate>
-                                    <Border BorderBrush="Red" BorderThickness="2"/>
-                                </ControlTemplate>
-                            </Setter.Value>
-                        </Setter>
-                    </Style>
-                </Setter.Value>
-            </Setter>
-        </Style>
-    </Window.Resources>
     <Grid>
         <Border>
             <Grid Background="Black" Opacity="0.30"></Grid>
         </Border>
-        <Button MaxWidth="180" MaxHeight="80" FontSize="26" FontFamily="Helvetica" Click="NewSale_Click" BorderBrush="White" Margin="0,31,0,178" TabIndex="1">
+        <Button MaxWidth="180" MaxHeight="80" FontSize="26" FontFamily="Helvetica" Click="NewSale_Click" BorderBrush="White" Margin="0,23,0,186" TabIndex="1">
             <Button.Background>
                 <SolidColorBrush Color="Chocolate"></SolidColorBrush>
             </Button.Background>
@@ -59,7 +41,7 @@
             </Button.Style>
         </Button>
 
-        <Button MaxWidth="180" MaxHeight="80" FontSize="26" FontFamily="Helvetica" Click="ListSale_Click" BorderBrush="White" Margin="-19,184,-22,53" RenderTransformOrigin="0.5,0.5">
+        <Button MaxWidth="180" MaxHeight="80" FontSize="26" FontFamily="Helvetica" Click="ListSale_Click" BorderBrush="White" Margin="-19,165,-22,72" RenderTransformOrigin="0.5,0.5">
             <Button.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>
@@ -101,8 +83,5 @@
         <Grid.Background>
             <ImageBrush ImageSource="Images/fondopecan.jpg" Stretch="Fill"/>
         </Grid.Background>
-
-
-
     </Grid>
 </Window>
