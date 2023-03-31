@@ -5,7 +5,9 @@ VisualStudioVersion = 17.3.32922.545
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pecan", "Pecan\Pecan.csproj", "{CB094584-CA2B-4AD5-A8A4-F1BAA0DD4D27}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pecan.Data", "Pecan.Data\Pecan.Data.csproj", "{ABA2EF44-1EC6-48D7-A9B2-32ED57634A70}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pecan.Data", "Pecan.Data\Pecan.Data.csproj", "{ABA2EF44-1EC6-48D7-A9B2-32ED57634A70}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pecan.Managers", "Pecan.Managers\Pecan.Managers.csproj", "{1B11B5C6-E3D4-4DA8-9548-81FA63D47CE6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{ABA2EF44-1EC6-48D7-A9B2-32ED57634A70}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ABA2EF44-1EC6-48D7-A9B2-32ED57634A70}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ABA2EF44-1EC6-48D7-A9B2-32ED57634A70}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1B11B5C6-E3D4-4DA8-9548-81FA63D47CE6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1B11B5C6-E3D4-4DA8-9548-81FA63D47CE6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1B11B5C6-E3D4-4DA8-9548-81FA63D47CE6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1B11B5C6-E3D4-4DA8-9548-81FA63D47CE6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
