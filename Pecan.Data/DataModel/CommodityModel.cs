@@ -8,13 +8,15 @@ using System.Threading.Tasks;
 
 namespace Pecan.Data.DataModel
 {
-    public class SupplierModel
+    public class CommodityModel
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key]
         public int Id { get; set; }
-        public string? SupplierName { get; set; }
-        public string? Tel { get; set; }
-
+        public string? CommodityName { get; set; }
+        public string CodBar { get; set; } = string.Empty;
+        public float CostPrice { get; set; }
+        public float PricePublic { get; set; }
+        public int IdStock { get; set; }       
     }
 }
