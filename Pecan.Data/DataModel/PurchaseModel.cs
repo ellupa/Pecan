@@ -14,7 +14,8 @@ namespace Pecan.Data.DataModel
         [Key]
         public int Id { get; set; }
         public DateTime PurchaseDate { get; set; }
-        public int IdSupplier { get; set; }
+        public SupplierModel? Supplier { get; set; }
         public float Total { get; set; }
+
     }
 }
