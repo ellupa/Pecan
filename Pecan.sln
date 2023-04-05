@@ -7,9 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pecan", "Pecan\Pecan.csproj
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pecan.Data", "Pecan.Data\Pecan.Data.csproj", "{ABA2EF44-1EC6-48D7-A9B2-32ED57634A70}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pecan.Interface", "Pecan.Interface\Pecan.Interface.csproj", "{8C2066F3-BD25-4133-823E-62D533297416}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pecan.Managers", "Pecan.Managers\Pecan.Managers.csproj", "{1B11B5C6-E3D4-4DA8-9548-81FA63D47CE6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pecan.Interface", "Pecan.Interface\Pecan.Interface.csproj", "{8C2066F3-BD25-4133-823E-62D533297416}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
