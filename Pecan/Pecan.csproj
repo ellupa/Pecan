@@ -20,7 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Models\" />
+    <ProjectReference Include="..\Pecan.Data\Pecan.Data.csproj" />
   </ItemGroup>
 
 </Project>
