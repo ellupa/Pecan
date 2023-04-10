@@ -2,6 +2,7 @@
 using Dapper;
 using MySql.Data.MySqlClient;
 using Mysqlx.Connection;
+using MySqlX.XDevAPI.Common;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -50,22 +51,40 @@ namespace Pecan.Data.DataModel
             
         }
 
-        public CommodityModel GetProduct(string name)
+        public IEnumerable<CommodityModel> GetProduct(string name)
         {
-            CommodityModel model = null;
             try
             {
                 using (var db = new MySqlConnection(PecanContext.ConnectionString()))
                 {
-                    var mySql = "";
+                    var mySql = "SELECT CommodityName, CodBar, CostPrice, PricePublic, IdStock FROM Commodities" +
+                        $" WHERE CommodityName LIKE {name}%";
+                    var result = db.Query<CommodityModel>(mySql);
+                    return result.ToList();
+                }                
+            }
+            catch (Exception)
+            {
+                List<CommodityModel> _lstCommodity = new List<CommodityModel>();
+                return _lstCommodity;
+            }
+        }
+
+       /* public IEnumerable<CommodityModel> GetProduct(int codBar)
+        {
+            try
+            {
+                using (var db = new MySqlConnection(PecanContext.ConnectionString()))
+                {
+                    var 
                 }
-                return model;
             }
             catch (Exception)
             {
 
-                return model;
+                throw;
             }
         }
+       */
     }
 }

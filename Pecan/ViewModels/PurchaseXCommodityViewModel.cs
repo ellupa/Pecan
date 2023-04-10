@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Pecan.ViewModels
 {
-    internal class PurchaseXCommodityViewModel
+    public class PurchaseXCommodityViewModel
     {
     }
 }

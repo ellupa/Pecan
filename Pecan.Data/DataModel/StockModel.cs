@@ -14,7 +14,7 @@ namespace Pecan.Data.DataModel
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key]
         public int Id { get; set; }
-        public float QuantityOfProduct { get; set; }
+        public float QuantityOfProducts { get; set; }
 
     }
 }
