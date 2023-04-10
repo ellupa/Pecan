@@ -9,6 +9,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pecan.Data", "Pecan.Data\Pe
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pecan.Interface", "Pecan.Interface\Pecan.Interface.csproj", "{8C2066F3-BD25-4133-823E-62D533297416}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pecan.Managers", "Pecan.Managers\Pecan.Managers.csproj", "{48AE26DF-D53B-4D8A-BEB1-AE199098D64C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pecan.Entities", "Pecan.Entities\Pecan.Entities.csproj", "{7E3576DE-6A71-4F6E-8875-777D47504FEE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +31,14 @@ Global
 		{8C2066F3-BD25-4133-823E-62D533297416}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8C2066F3-BD25-4133-823E-62D533297416}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8C2066F3-BD25-4133-823E-62D533297416}.Release|Any CPU.Build.0 = Release|Any CPU
+		{48AE26DF-D53B-4D8A-BEB1-AE199098D64C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{48AE26DF-D53B-4D8A-BEB1-AE199098D64C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{48AE26DF-D53B-4D8A-BEB1-AE199098D64C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{48AE26DF-D53B-4D8A-BEB1-AE199098D64C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7E3576DE-6A71-4F6E-8875-777D47504FEE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7E3576DE-6A71-4F6E-8875-777D47504FEE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7E3576DE-6A71-4F6E-8875-777D47504FEE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7E3576DE-6A71-4F6E-8875-777D47504FEE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
