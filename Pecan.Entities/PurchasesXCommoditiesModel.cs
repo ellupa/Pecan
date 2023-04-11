@@ -9,7 +9,7 @@ namespace Pecan.Entities
     public class PurchasesXCommoditiesModel
     {
         public int Id { get; set; }
-        public PurchaseModel? Purchase { get; set; }
+        public int Purchase { get; set; }
         public int IdCommodity { get; set; }
         public float QuantityOfProducts { get; set; }
     }
