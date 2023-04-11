@@ -10,17 +10,13 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace Pecan.Data.DataModel
 {
-    public class CommodityData : IAddAList<CommodityModel>
+    public class CommodityData : IAddAList<CommodityModel>, IModify<CommodityModel>
     {
         public string Add(CommodityModel model)
-        {
-            throw new NotImplementedException();
-        }
-
-        public string AddCommodity(CommodityModel commodityModel)
         {
             try
             {
@@ -31,51 +27,99 @@ namespace Pecan.Data.DataModel
                     var result = db.Execute(mySql,
                     new
                     {
-                        Name = commodityModel.CommodityName,
-                        CodBar = commodityModel?.CodBar,
-                        PricePublic = commodityModel?.PricePublic,
-                        CostPrice = commodityModel?.CostPrice,
-                        IdStock = commodityModel?.IdStock
-                    }) ;
+                        Name = model.CommodityName,
+                        CodBar = model?.CodBar,
+                        PricePublic = model?.PricePublic,
+                        CostPrice = model?.CostPrice,
+                        IdStock = model?.IdStock
+                    });
                 }
-                    return "Se guardo correctamente el producto nuevo";
+                return "Se guardo correctamente el producto nuevo";
             }
             catch (Exception)
             {
                 return "No se pudo guardar el producto, Fijese que esten bien los Formatos de textos y numeros";
+            }
+        }
+
+        public string Delete(CommodityModel model)
+        {
+            try
+            {
+                using (var db = new MySqlConnection(PecanContext.ConnectionString()))
+                {
+                    var mySql = $"DELETE FROM Comodities Where({model.Id} = Id)";
+                    return "Se elimino correctamente";
+                };
+            }
+            catch (Exception)
+            {
+
+                return "No se pudo eliminar";
             }
             
         }
 
         public IEnumerable<CommodityModel> GetAll()
         {
-            throw new NotImplementedException();
-        }
-
-        public CommodityModel GetById(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public CommodityModel GetProduct(string name)
-        {
-            CommodityModel? model = null;
             try
             {
                 using (var db = new MySqlConnection(PecanContext.ConnectionString()))
                 {
-                    //var mySql = "";
+                    var mySql = "SELECT CommodityName, CodBar, CostPrice, PricePublic, IdStock FROM Commodities";
+                    var result = db.Query<CommodityModel>(mySql);
+                    return result.ToList();
                 }
-                return model;
             }
             catch (Exception)
             {
+                List<CommodityModel> _lstCommodity = new List<CommodityModel>();
+                return _lstCommodity;
+            }
+        }
 
+        public CommodityModel GetById(int id)
+        {
+            CommodityModel commodityModel;
+            try
+            {                
+                using (var db = new MySqlConnection(PecanContext.ConnectionString()))
+                {
+                    var mySql = $"Select * From Commodities WHERE({id} = Id)";
+                    commodityModel = (CommodityModel)db.Query<CommodityModel>(mySql);
+                };
+
+                return commodityModel;
+            }
+            catch (Exception)
+            {
+                commodityModel = new CommodityModel();
+                return commodityModel;
+            }
+            
+        }
+
+        public CommodityModel GetCommodityByCodeBar(string code)
+        {
+            CommodityModel model;
+            try
+            {
+                using (var db = new MySqlConnection(PecanContext.ConnectionString()))
+                {
+                    var mySql = "SELECT CommodityName, CodBar, CostPrice, PricePublic, IdStock FROM Commodities" +
+                        $" WHERE (CodBar = {code})";
+                    model = (CommodityModel)db.Query<CommodityModel>(mySql);
+                    return model;
+                }
+            }
+            catch (Exception)
+            {
+                model = new CommodityModel();
                 return model;
             }
         }
 
-        public IEnumerable<CommodityModel> GetProducts(string name)
+        public IEnumerable<CommodityModel> GetCommodityByName(string name)
         {
             try
             {
@@ -91,6 +135,23 @@ namespace Pecan.Data.DataModel
             {
                 List<CommodityModel> _lstCommodity = new List<CommodityModel>();
                 return _lstCommodity;
+            }
+        }
+
+        public string Update(CommodityModel model)
+        {
+            try
+            {
+                using (var db = new MySqlConnection(PecanContext.ConnectionString()))
+                {
+                    var mySql = $"UPDATE Commodities SET CommodityName={model.CommodityName}, CodBar={model.CodBar}, CostPrice = {model.CostPrice}, PricePublic={model.PricePublic}, IdStock={model.IdStock} FROM Commodities WHERE (Id = {model.Id})";
+                    var result = db.Query<CommodityModel>(mySql);
+                    return "Se actulizo correctamente";
+                }
+            }
+            catch (Exception)
+            {                
+                return "No se pudo Actualizar";
             }
         }
     }
