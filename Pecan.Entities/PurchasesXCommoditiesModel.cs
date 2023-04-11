@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Pecan.Data.DataModel
+namespace Pecan.Entities
 {
     public class PurchasesXCommoditiesModel
     {

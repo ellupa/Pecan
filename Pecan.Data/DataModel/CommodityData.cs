@@ -1,6 +1,7 @@
 ﻿using Dapper;
 using MySql.Data.MySqlClient;
 using Mysqlx.Connection;
+using Pecan.Entities;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -48,7 +49,7 @@ namespace Pecan.Data.DataModel
             {
                 using (var db = new MySqlConnection(PecanContext.ConnectionString()))
                 {
-                    var mySql = "";
+                    //var mySql = "";
                 }
                 return model;
             }
@@ -56,6 +57,25 @@ namespace Pecan.Data.DataModel
             {
 
                 return model;
+            }
+        }
+
+        public IEnumerable<CommodityModel> GetProducts(string name)
+        {
+            try
+            {
+                using (var db = new MySqlConnection(PecanContext.ConnectionString()))
+                {
+                    var mySql = "SELECT CommodityName, CodBar, CostPrice, PricePublic, IdStock FROM Commodities" +
+                        $" WHERE CommodityName LIKE {name}%";
+                    var result = db.Query<CommodityModel>(mySql);
+                    return result.ToList();
+                }
+            }
+            catch (Exception)
+            {
+                List<CommodityModel> _lstCommodity = new List<CommodityModel>();
+                return _lstCommodity;
             }
         }
     }
