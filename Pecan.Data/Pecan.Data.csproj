@@ -13,6 +13,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Pecan.Entities\Pecan.Entities.csproj" />
+    <ProjectReference Include="..\Pecan.Interface\Pecan.Interface.csproj" />
   </ItemGroup>
 
 </Project>

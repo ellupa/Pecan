@@ -2,6 +2,7 @@
 using MySql.Data.MySqlClient;
 using Mysqlx.Connection;
 using Pecan.Entities;
+using Pecan.Interface;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -12,9 +13,13 @@ using System.Threading.Tasks;
 
 namespace Pecan.Data.DataModel
 {
-    public class CommodityData
+    public class CommodityData : IAddAList<CommodityModel>
     {
-        
+        public string Add(CommodityModel model)
+        {
+            throw new NotImplementedException();
+        }
+
         public string AddCommodity(CommodityModel commodityModel)
         {
             try
@@ -40,6 +45,16 @@ namespace Pecan.Data.DataModel
                 return "No se pudo guardar el producto, Fijese que esten bien los Formatos de textos y numeros";
             }
             
+        }
+
+        public IEnumerable<CommodityModel> GetAll()
+        {
+            throw new NotImplementedException();
+        }
+
+        public CommodityModel GetById(int id)
+        {
+            throw new NotImplementedException();
         }
 
         public CommodityModel GetProduct(string name)
