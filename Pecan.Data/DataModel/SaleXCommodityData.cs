@@ -64,11 +64,13 @@ namespace Pecan.Data.DataModel
                         INNER JOIN Sales ON Sales.Id = SalesXCommodities.IdSales
                         INNER JOIN Commodities ON SalesXCommodities.IdCommodities = Commodities.Id";
 
-                    List<SaleXCommodityModel> results = db.Query<SaleModel, CommodityModel, SaleXCommodityModel>(mySql,
-                        (sale, commodity) =>
+                    List<SaleXCommodityModel> results = db.Query<SaleModel, CommodityModel, SaleXCommodityModel, SaleXCommodityModel>(mySql,
+                        (sale, commodity, saleXCommodityModel) =>
                         {
                             SaleXCommodityModel saleDetails = new SaleXCommodityModel
                             {
+                                Id = saleXCommodityModel.Id,
+                                QuantityOfProduct = saleXCommodityModel.QuantityOfProduct,
                                 Sales = sale,
                                 Commodities = commodity                           
                             };
@@ -102,11 +104,13 @@ namespace Pecan.Data.DataModel
                         WHERE SalesXCommodities.Id = {id}";
 
 
-                    var results = db.Query<SaleModel, CommodityModel, SaleXCommodityModel>(mySql,
-                        (sale, commodity) =>
+                    var results = db.Query<SaleModel, CommodityModel, SaleXCommodityModel, SaleXCommodityModel>(mySql,
+                        (sale, commodity, saleXCommodityModel) =>
                         {
                             SaleXCommodityModel saleDetails = new SaleXCommodityModel
                             {
+                                Id = saleXCommodityModel.Id,
+                                QuantityOfProduct = saleXCommodityModel.QuantityOfProduct,
                                 Sales = sale,
                                 Commodities = commodity
                             };

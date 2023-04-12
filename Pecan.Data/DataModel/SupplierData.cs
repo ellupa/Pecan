@@ -18,7 +18,7 @@ namespace Pecan.Data.DataModel
             {
                 using (var db = new MySqlConnection(PecanContext.ConnectionString()))
                 {
-                    var mySql = $"INSERT INTO Stock(SupplierName, Tel)Values('{supplier.SupplierName}','{supplier.Tel}')";
+                    var mySql = $"INSERT INTO Suppliers(SupplierName, Tel)Values('{supplier.SupplierName}','{supplier.Tel}')";
                     db.Execute(mySql);
                 }
                 return "Se guardo correctamente el proveedor";
@@ -59,7 +59,7 @@ namespace Pecan.Data.DataModel
             {
                 using (var db = new MySqlConnection(PecanContext.ConnectionString()))
                 {
-                    var mySql = "SELECT Id,SupplierName,Tel FROM Stock";
+                    var mySql = "SELECT Id,SupplierName,Tel FROM Suppliers";
                     var result = db.Query<SupplierModel>(mySql);
                     return result.ToList();
                 }
@@ -77,7 +77,7 @@ namespace Pecan.Data.DataModel
             {
                 using (var db = new MySqlConnection(PecanContext.ConnectionString()))
                 {
-                    var mySql = $"SELECT Id,SupplierName,Tel FROM Stock WHERE Id = {id}";
+                    var mySql = $"SELECT Id,SupplierName,Tel FROM Suppliers WHERE Id = {id}";
                     var result = db.QueryFirstOrDefault<SupplierModel>(mySql);
                     return result;
                 }
