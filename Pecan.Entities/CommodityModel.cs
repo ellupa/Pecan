@@ -18,7 +18,7 @@ namespace Pecan.Entities
         public string CodBar { get; set; } = string.Empty;
         public float CostPrice { get; set; }
         public float PricePublic { get; set; }
-        public int IdStock { get; set; }
+        public StockModel? Stock { get; set; }
                 
     }
 }
