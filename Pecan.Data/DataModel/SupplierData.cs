@@ -79,7 +79,9 @@ namespace Pecan.Data.DataModel
                 {
                     var mySql = $"SELECT Id,SupplierName,Tel FROM Suppliers WHERE Id = {id}";
                     var result = db.QueryFirstOrDefault<SupplierModel>(mySql);
-                    return result;
+                    if (result != null)
+                        return result;
+                    return result = new SupplierModel();
                 }
             }
             catch (Exception ex)

@@ -1,5 +1,6 @@
 ﻿using Dapper;
 using MySql.Data.MySqlClient;
+using MySqlX.XDevAPI.Common;
 using Pecan.Entities;
 using Pecan.Interface;
 using System;
@@ -117,8 +118,9 @@ namespace Pecan.Data.DataModel
                         },
                         splitOn: "Id, Id, Id"
                     ).FirstOrDefault();
-
-                    return results;
+                    if (results != null)
+                        return results;
+                    return results = new SuppliersXCommoditiesModel();
                 }
             }
             catch (Exception ex)

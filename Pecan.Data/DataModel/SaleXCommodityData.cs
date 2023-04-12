@@ -119,8 +119,9 @@ namespace Pecan.Data.DataModel
                         },
                         splitOn: "Id, Id, Id"
                     ).FirstOrDefault();
-
-                    return results;
+                    if (results != null)
+                        return results;
+                    return results = new SaleXCommodityModel();
                 }
             }
             catch (Exception ex)

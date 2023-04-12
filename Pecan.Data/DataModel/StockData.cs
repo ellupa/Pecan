@@ -80,7 +80,9 @@ namespace Pecan.Data.DataModel
                 {
                     var mySql = $"SELECT Id, QuantityOfProducts FROM Stock WHERE Id = {id}";
                     var result = db.QueryFirstOrDefault<StockModel>(mySql);
-                    return result;
+                    if (result != null)
+                        return result;
+                    return result = new StockModel();
                 }
             }
             catch (Exception ex)

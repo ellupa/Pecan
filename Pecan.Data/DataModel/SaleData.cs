@@ -1,5 +1,6 @@
 ﻿using Dapper;
 using MySql.Data.MySqlClient;
+using MySqlX.XDevAPI.Common;
 using Pecan.Entities;
 using Pecan.Interface;
 using System;
@@ -79,7 +80,9 @@ namespace Pecan.Data.DataModel
                 {
                     var mySql = $"SELECT Id,DateOfSale,Total FROM Sales WHERE Id = {id}";
                     var result = db.QueryFirstOrDefault<SaleModel>(mySql);
-                    return result;
+                    if (result != null)
+                        return result;
+                    return result = new SaleModel();
                 }
             }
             catch (Exception ex)
