@@ -59,10 +59,11 @@ namespace Pecan.Data.DataModel
             {
                 using (var db = new MySqlConnection(PecanContext.ConnectionString()))
                 {
-                    var mySql = @"SELECT Sales.*, Commodities.*, SalesXCommodities.*
+                    var mySql = @"SELECT Stock.*, Sales.*, Commodities.*, SalesXCommodities.*
                         FROM SalesXCommodities
                         INNER JOIN Sales ON Sales.Id = SalesXCommodities.IdSales
-                        INNER JOIN Commodities ON SalesXCommodities.IdCommodities = Commodities.Id";
+                        INNER JOIN Commodities ON SalesXCommodities.IdCommodities = Commodities.Id
+                        INNER JOIN Stock ON Commodities.IdStock = Stock.Id";
 
                     List<SaleXCommodityModel> results = db.Query<SaleModel, CommodityModel, SaleXCommodityModel, SaleXCommodityModel>(mySql,
                         (sale, commodity, saleXCommodityModel) =>
@@ -97,10 +98,11 @@ namespace Pecan.Data.DataModel
             {
                 using (var db = new MySqlConnection(PecanContext.ConnectionString()))
                 {
-                    var mySql = $@"SELECT Sales.*, Commodities.*, SalesXCommodities.*
+                    var mySql = $@"SELECT Stock.*, Sales.*, Commodities.*, SalesXCommodities.*
                         FROM SalesXCommodities
                         INNER JOIN Sales ON Sales.Id = SalesXCommodities.IdSales
                         INNER JOIN Commodities ON SalesXCommodities.IdCommodities = Commodities.Id
+                        INNER JOIN Stock ON Commodities.IdStock = Stock.Id
                         WHERE SalesXCommodities.Id = {id}";
 
 
