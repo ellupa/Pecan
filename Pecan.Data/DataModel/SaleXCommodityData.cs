@@ -10,46 +10,46 @@ using System.Threading.Tasks;
 
 namespace Pecan.Data.DataModel
 {
-    public class SaleXCommodityData : IAddAList<SaleDetailModel>, IModify<SaleXCommodityModel>
+    public class SaleXCommodityData : IAddAList<SaleXCommodityModel>, IModify<SaleXCommodityModel>
     {
-        public string Add(SaleDetailModel supplier)
+        public string Add(SaleXCommodityModel saleXCommodity)
         {
             try
             {
                 using (var db = new MySqlConnection(PecanContext.ConnectionString()))
                 {
-                    var mySql = $"INSERT INTO Stock(SupplierName, Tel)Values('{supplier.IdSales}','{supplier.IdCommodities}')";
+                    var mySql = $"INSERT INTO SalesXCommodities(QuantityOfproducts, Sales, Commodities)Values('{saleXCommodity.QuantityOfProduct}','{saleXCommodity.Sales}','{saleXCommodity.Commodities}')";
                     db.Execute(mySql);
                 }
-                return "Se guardo correctamente el proveedor";
+                return "Se guardo correctamente la venta";
             }
             catch (Exception)
             {
-                return "No se pudo guardar el proveedor, Fijese que esten bien ingresado";
+                return "No se pudo guardar la venta, Fijese que esten bien ingresado";
             }
         }
 
-        public string Delete(SaleDetailModel supplier)
+        public string Delete(SaleXCommodityModel saleXCommodity)
         {
             try
             {
                 using (var db = new MySqlConnection(PecanContext.ConnectionString()))
                 {
-                    var mySql = $"DELETE FROM Suppliers WHERE Id = {supplier.Id}";
+                    var mySql = $"DELETE FROM SalesXCommodities WHERE Id = {saleXCommodity.Id}";
                     var rowsAffected = db.Execute(mySql);
                     if (rowsAffected > 0)
                     {
-                        return "Proveedor eliminado correctamente";
+                        return "Venta eliminada correctamente";
                     }
                     else
                     {
-                        return "No se encontró ningún proveedor para eliminar";
+                        return "No se encontró ninguna venta para eliminar";
                     }
                 }
             }
             catch (Exception ex)
             {
-                return "Ocurrió un error al eliminar el proveedor.";
+                return "Ocurrió un error al eliminar la venta.";
             }
         }
 
@@ -95,46 +95,60 @@ namespace Pecan.Data.DataModel
             {
                 using (var db = new MySqlConnection(PecanContext.ConnectionString()))
                 {
-                    var mySql = $"SELECT Id,SupplierName,Tel FROM Stock WHERE Id = {id}";
-                    var result = db.QueryFirstOrDefault<SaleXCommodityModel>(mySql);
-                    return result;
+                    var mySql = $@"SELECT Sales.*, Commodities.*, SalesXCommodities.*
+                        FROM SalesXCommodities
+                        INNER JOIN Sales ON Sales.Id = SalesXCommodities.IdSales
+                        INNER JOIN Commodities ON SalesXCommodities.IdCommodities = Commodities.Id
+                        WHERE SalesXCommodities.Id = {id}";
+
+
+                    var results = db.Query<SaleModel, CommodityModel, SaleXCommodityModel>(mySql,
+                        (sale, commodity) =>
+                        {
+                            SaleXCommodityModel saleDetails = new SaleXCommodityModel
+                            {
+                                Sales = sale,
+                                Commodities = commodity
+                            };
+
+                            return saleDetails;
+                        },
+                        splitOn: "Id, Id, Id"
+                    ).FirstOrDefault();
+
+                    return results;
                 }
             }
             catch (Exception ex)
             {
-                SaleXCommodityModel supplier = new SaleXCommodityModel();
-                return supplier;
+                SaleXCommodityModel result = new SaleXCommodityModel();
+                return result;
             }
         }
 
-        public string Update(SaleXCommodityModel supplier)
+        public string Update(SaleXCommodityModel saleXCommodity)
         {
             try
             {
                 using (var db = new MySqlConnection(PecanContext.ConnectionString()))
                 {
-                    var mySql = $"UPDATE Stock SET SupplierName = {supplier.IdSales}, Tel = {supplier.IdCommodities} WHERE Id = {supplier.Id}";
+                    var mySql = $"UPDATE Stock SET SupplierName = {saleXCommodity.Sales}, Tel = {saleXCommodity.Commodities} WHERE Id = {saleXCommodity.Id}";
                     var rowsAffected = db.Execute(mySql);
                     if (rowsAffected > 0)
                     {
-                        return "Proveedor actualizado correctamente";
+                        return "Venta actualizada correctamente";
                     }
                     else
                     {
-                        return "No se encontró ningún proveedor para actualizar";
+                        return "No se encontró ninguna venta para actualizar";
                     }
                 }
             }
             catch (Exception ex)
             {
-                return "Ocurrió un error al actualizar el proveedor.";
+                return "Ocurrió un error al actualizar la venta.";
 
             }
-        }
-
-        IEnumerable<SaleXCommodityModel> IAddAList<SaleXCommodityModel>.GetAll()
-        {
-            throw new NotImplementedException();
         }
     }
 }
