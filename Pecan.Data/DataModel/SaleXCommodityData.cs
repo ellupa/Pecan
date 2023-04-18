@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Pecan.Data.DataModel
 {
-    public class SaleXCommodityData : IAddAList<SaleXCommodityModel>, IModify<SaleXCommodityModel>
+    public class SaleXCommodityData : ICrd<SaleXCommodityModel>
     {
         public string Add(SaleXCommodityModel saleXCommodity)
         {
@@ -65,18 +65,16 @@ namespace Pecan.Data.DataModel
                         INNER JOIN Commodities ON SalesXCommodities.IdCommodities = Commodities.Id
                         INNER JOIN Stock ON Commodities.IdStock = Stock.Id";
 
-                    List<SaleXCommodityModel> results = db.Query<SaleModel, CommodityModel, SaleXCommodityModel, SaleXCommodityModel>(mySql,
-                        (sale, commodity, saleXCommodityModel) =>
+                    var results = db.Query< SaleXCommodityModel, SaleModel, CommodityModel, StockModel, SaleXCommodityModel>(mySql,
+                        (saleXCommodity, sale, commodity, stock ) =>
                         {
-                            SaleXCommodityModel saleDetails = new SaleXCommodityModel
+                            saleXCommodity.Sales = sale;
+                            if ( commodity != null )
                             {
-                                Id = saleXCommodityModel.Id,
-                                QuantityOfProduct = saleXCommodityModel.QuantityOfProduct,
-                                Sales = sale,
-                                Commodities = commodity                           
-                            };
+                                saleXCommodity.Commodities = commodity;
+                            }
 
-                            return saleDetails;
+                            return saleXCommodity;
                         },
                         splitOn: "Id, Id, Id"
                     ).ToList();
@@ -105,19 +103,15 @@ namespace Pecan.Data.DataModel
                         INNER JOIN Stock ON Commodities.IdStock = Stock.Id
                         WHERE SalesXCommodities.Id = {id}";
 
-
-                    var results = db.Query<SaleModel, CommodityModel, SaleXCommodityModel, SaleXCommodityModel>(mySql,
-                        (sale, commodity, saleXCommodityModel) =>
+                    var results = db.Query<SaleXCommodityModel, SaleModel, CommodityModel, StockModel, SaleXCommodityModel>(mySql,
+                        (saleXCommodity, sale, commodity, stock) =>
                         {
-                            SaleXCommodityModel saleDetails = new SaleXCommodityModel
+                            saleXCommodity.Sales = sale;
+                            if (commodity != null)
                             {
-                                Id = saleXCommodityModel.Id,
-                                QuantityOfProduct = saleXCommodityModel.QuantityOfProduct,
-                                Sales = sale,
-                                Commodities = commodity
-                            };
-
-                            return saleDetails;
+                                saleXCommodity.Commodities = commodity;
+                            }
+                            return saleXCommodity;
                         },
                         splitOn: "Id, Id, Id"
                     ).FirstOrDefault();
@@ -132,30 +126,6 @@ namespace Pecan.Data.DataModel
                 return result;
             }
         }
-
-        public string Update(SaleXCommodityModel saleXCommodity)
-        {
-            try
-            {
-                using (var db = new MySqlConnection(PecanContext.ConnectionString()))
-                {
-                    var mySql = $"UPDATE Stock SET SupplierName = {saleXCommodity.Sales}, Tel = {saleXCommodity.Commodities} WHERE Id = {saleXCommodity.Id}";
-                    var rowsAffected = db.Execute(mySql);
-                    if (rowsAffected > 0)
-                    {
-                        return "Venta actualizada correctamente";
-                    }
-                    else
-                    {
-                        return "No se encontró ninguna venta para actualizar";
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                return "Ocurrió un error al actualizar la venta.";
-
-            }
-        }
     }
 }
+

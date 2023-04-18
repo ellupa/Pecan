@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Pecan.Data.DataModel
 {
-    public class SaleData : IAddAList<SaleModel>, IModify<SaleModel>
+    public class SaleData : ICrd<SaleModel>, IModify<SaleModel>
     {
         public string Add(SaleModel sale)
         {

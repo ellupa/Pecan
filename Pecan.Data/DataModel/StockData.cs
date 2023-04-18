@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Pecan.Data.DataModel
 {
-    public class StockData :IAddAList<StockModel>, IModify<StockModel>
+    public class StockData :ICrd<StockModel>, IModify<StockModel>
     {
         public string Add(StockModel model)
         {

@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Pecan.Data.DataModel
 {
-    public class SuppliersXCommodityData : IAddAList<SuppliersXCommoditiesModel>, IModify<SuppliersXCommoditiesModel>
+    public class SuppliersXCommodityData : ICrd<SuppliersXCommoditiesModel>
     {
         public string Add(SuppliersXCommoditiesModel supplierXCommodity)
         {
@@ -130,31 +130,6 @@ namespace Pecan.Data.DataModel
             {
                 SuppliersXCommoditiesModel result = new SuppliersXCommoditiesModel();
                 return result;
-            }
-        }
-
-        public string Update(SuppliersXCommoditiesModel supplierXCommodity)
-        {
-            try
-            {
-                using (var db = new MySqlConnection(PecanContext.ConnectionString()))
-                {
-                    var mySql = $"UPDATE SupplierXCommodity SET IdCommodities = {supplierXCommodity.Commodities.Id}, IdSupplier = {supplierXCommodity.Suppliers.Id} WHERE Id = {supplierXCommodity.Id}";
-                    var rowsAffected = db.Execute(mySql);
-                    if (rowsAffected > 0)
-                    {
-                        return "Proveedor actualizado correctamente";
-                    }
-                    else
-                    {
-                        return "No se encontró ningún proveedor para actualizar";
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                return "Ocurrió un error al actualizar el proveedor.";
-
             }
         }
     }
