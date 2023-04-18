@@ -66,17 +66,16 @@ namespace Pecan.Data.DataModel
                         INNER JOIN Commodities ON sc.IdCommodities = Commodities.Id
                         INNER JOIN Stock ON Commodities.IdStock = Stock.Id;";
 
-                    List<SuppliersXCommoditiesModel> results = db.Query<SupplierModel, CommodityModel, SuppliersXCommoditiesModel, SuppliersXCommoditiesModel>(mySql,
-                        (supplier, commodity, suppliersXCommoditiesModel) =>
+                    var results = db.Query<SuppliersXCommoditiesModel, SupplierModel, CommodityModel, StockModel, SuppliersXCommoditiesModel>(mySql,
+                        (suppliersXCommodities, supplier, commodity, stock) =>
                         {
-                            SuppliersXCommoditiesModel supplierDetails = new SuppliersXCommoditiesModel
+                            suppliersXCommodities.Suppliers = supplier;
+                            if (commodity!=null)
                             {
-                                Id= suppliersXCommoditiesModel.Id,
-                                Suppliers = supplier,
-                                Commodities = commodity
-                            };
-
-                            return supplierDetails;
+                                commodity.Stock= stock;
+                            }
+                            suppliersXCommodities.Commodities = commodity;
+                            return suppliersXCommodities;
                         },
                         splitOn: "Id, Id, Id"
                     ).ToList();
@@ -98,30 +97,32 @@ namespace Pecan.Data.DataModel
             {
                 using (var db = new MySqlConnection(PecanContext.ConnectionString()))
                 {
-                   var mySql = $@"SELECT sc.Id, Commodities.*, Suppliers.*, Stock.*
+                    var mySql = @"SELECT sc.Id, Commodities.*, Suppliers.*, Stock.*
                         FROM SuppliersXCommodities sc
                         INNER JOIN Suppliers ON sc.IdSupplier = Suppliers.Id
                         INNER JOIN Commodities ON sc.IdCommodities = Commodities.Id
                         INNER JOIN Stock ON Commodities.IdStock = Stock.Id
-                        WHERE sc.Id = {id}";
+                        WHERE sc.Id = @id";
 
-
-                    SuppliersXCommoditiesModel? results = db.Query<SupplierModel, CommodityModel, SuppliersXCommoditiesModel, SuppliersXCommoditiesModel>(mySql,
-                        (supplier, commodity, suppliersXCommoditiesModel) =>
+                    var parameters = new { id };
+                    var results = db.Query<SuppliersXCommoditiesModel, SupplierModel, CommodityModel, StockModel, SuppliersXCommoditiesModel>(mySql,
+                        (suppliersXCommodities, supplier, commodity, stock) =>
                         {
-                            SuppliersXCommoditiesModel supplierDetails = new SuppliersXCommoditiesModel
+                            suppliersXCommodities.Suppliers = supplier;
+                            if (commodity != null)
                             {
-                                Id = suppliersXCommoditiesModel.Id,
-                                Suppliers = supplier,
-                                Commodities = commodity
-                            };
-
-                            return supplierDetails;
+                                commodity.Stock = stock;
+                            }
+                            suppliersXCommodities.Commodities = commodity;
+                            return suppliersXCommodities;
                         },
+                        parameters,
                         splitOn: "Id, Id, Id"
                     ).FirstOrDefault();
+
                     if (results != null)
                         return results;
+
                     return results = new SuppliersXCommoditiesModel();
                 }
             }
