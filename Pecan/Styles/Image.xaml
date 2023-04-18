@@ -20,7 +20,7 @@
                 Value="30" />
 
         <Setter Property="Margin"
-                Value="222,0,0,0" />
+                Value="22,0,0,0" />
 
     </Style>
     

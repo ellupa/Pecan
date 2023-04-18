@@ -4,8 +4,8 @@
     <Style x:Key="TextStyle"
            TargetType="TextBlock">
 
-        <Setter Property="FontFamily"
-                Value="/Fonts/" />
+      <!--  <Setter Property="FontFamily"
+                Value="/Fonts/" /> -->
 
         <Setter Property="VerticalAlignment"
                 Value="Center" />
