@@ -6,7 +6,7 @@ using Pecan.Interface;
 
 namespace Pecan.Data.DataModel
 {
-    public class CommodityData : IAddAList<CommodityModel>, IModify<CommodityModel>
+    public class CommodityData : ICrd<CommodityModel>, IModify<CommodityModel>
     {
         public string Add(CommodityModel model)
         {
@@ -184,7 +184,7 @@ namespace Pecan.Data.DataModel
                 using (var db = new MySqlConnection(PecanContext.ConnectionString()))
                 {
                     var mySql = "SELECT Commodities.* Stock.* FROM Commodities" +
-                        "INNER JOIN Stock ON Stock.Id = CommodityName.IdStock" +
+                        "INNER JOIN Stock ON Stock.Id = Commodities.IdStock" +
                         $"WHERE CommodityName LIKE {name}%";
                     var results = db.Query<CommodityModel, StockModel, CommodityModel>(mySql,
                         (commodities, stock) =>

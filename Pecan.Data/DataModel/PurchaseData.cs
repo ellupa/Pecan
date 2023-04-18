@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Pecan.Data.DataModel
 {
-    internal class PurchaseData : IAddAList<PurchaseModel>, IModify<PurchaseModel>
+    internal class PurchaseData : ICrd<PurchaseModel>, IModify<PurchaseModel>
     {
         public string Add(PurchaseModel model)
         {

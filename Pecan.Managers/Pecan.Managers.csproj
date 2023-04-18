@@ -6,4 +6,9 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Pecan.Interface\Pecan.Interface.csproj" />
+    <ProjectReference Include="..\Pecan\Pecan.csproj" />
+  </ItemGroup>
+
 </Project>
