@@ -12,6 +12,6 @@ namespace Pecan.Interface
        string Add(T model);
        IEnumerable<T> GetAll();
        T GetById(int id);
-        string Delete(T model);
+       string Delete(T model);
     }
 }
