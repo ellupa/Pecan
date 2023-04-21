@@ -18,7 +18,7 @@ namespace Pecan.Data.DataModel
             {
                 using (var db = new MySqlConnection(PecanContext.ConnectionString()))
                 {
-                    var mySql = $"INSERT INTO Suppliers(SupplierName, Tel)Values('{supplier.SupplierName}','{supplier.Tel}')";
+                    var mySql = $"INSERT INTO Suppliers(SupplierName, Tel, Direction)Values('{supplier.SupplierName}','{supplier.Tel}','{supplier.Direction}')";
                     db.Execute(mySql);
                 }
                 return "Se guardo correctamente el proveedor";
@@ -59,7 +59,7 @@ namespace Pecan.Data.DataModel
             {
                 using (var db = new MySqlConnection(PecanContext.ConnectionString()))
                 {
-                    var mySql = "SELECT Id,SupplierName,Tel FROM Suppliers";
+                    var mySql = "SELECT Id,SupplierName,Tel,Direction FROM Suppliers";
                     var result = db.Query<SupplierModel>(mySql);
                     return result.ToList();
                 }
@@ -77,7 +77,7 @@ namespace Pecan.Data.DataModel
             {
                 using (var db = new MySqlConnection(PecanContext.ConnectionString()))
                 {
-                    var mySql = $"SELECT Id,SupplierName,Tel FROM Suppliers WHERE Id = {id}";
+                    var mySql = $"SELECT Id,SupplierName,Tel,Direction FROM Suppliers WHERE Id = {id}";
                     var result = db.QueryFirstOrDefault<SupplierModel>(mySql);
                     if (result != null)
                         return result;
@@ -97,7 +97,7 @@ namespace Pecan.Data.DataModel
             {
                 using (var db = new MySqlConnection(PecanContext.ConnectionString()))
                 {
-                    var mySql = $"UPDATE Stock SET SupplierName = {supplier.SupplierName}, Tel = {supplier.Tel} WHERE Id = {supplier.Id}";
+                    var mySql = $"UPDATE Stock SET SupplierName = {supplier.SupplierName}, Tel = {supplier.Tel}, Direction = {supplier.Direction} WHERE Id = {supplier.Id}";
                     var rowsAffected = db.Execute(mySql);
                     if (rowsAffected > 0)
                     {
