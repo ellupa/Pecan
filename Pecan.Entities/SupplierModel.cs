@@ -15,5 +15,7 @@ namespace Pecan.Entities
         public int Id { get; set; }
         public string? SupplierName { get; set; }
         public string? Tel { get; set; }
+
+        public string? Direction { get; set; }
     }
 }
