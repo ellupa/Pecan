@@ -7,8 +7,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Pecan.Data\Pecan.Data.csproj" />
+    <ProjectReference Include="..\Pecan.Entities\Pecan.Entities.csproj" />
     <ProjectReference Include="..\Pecan.Interface\Pecan.Interface.csproj" />
-    <ProjectReference Include="..\Pecan\Pecan.csproj" />
   </ItemGroup>
 
 </Project>

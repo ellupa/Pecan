@@ -135,7 +135,7 @@ namespace Pecan.Data.DataModel
             }
             catch (Exception)
             {
-                commodityModel = new CommodityModel();
+                commodityModel = null;
                 return commodityModel;
             }            
         }
@@ -172,7 +172,7 @@ namespace Pecan.Data.DataModel
             }
             catch (Exception)
             {
-                model = new CommodityModel();
+                model = null;
                 return model;
             }
         }

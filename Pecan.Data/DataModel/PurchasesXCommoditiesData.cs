@@ -53,7 +53,7 @@ namespace Pecan.Data.DataModel
             }
         }
 
-        /*public IEnumerable<PurchasesXCommoditiesModel> GetAll()
+        /* public IEnumerable<PurchasesXCommoditiesModel> GetAll()
         {
             try
             {
@@ -71,7 +71,7 @@ namespace Pecan.Data.DataModel
                             {
                                 Id = purchaseXCommodities.Id,
 
-                               /*Purchase = new PurchaseModel()
+                               Purchase = new PurchaseModel()
                                {
                                     Id = purchase.Id,
                                     PurchaseDate = purchase.PurchaseDate,
@@ -106,7 +106,7 @@ namespace Pecan.Data.DataModel
                 List<PurchasesXCommoditiesModel> _lstPurchase = new List<PurchasesXCommoditiesModel>();
                 return _lstPurchase;
             }         
-        }*/
+        } */
 
         public IEnumerable<PurchasesXCommoditiesModel> GetAll()
         {
@@ -179,6 +179,46 @@ namespace Pecan.Data.DataModel
                 );
                 return results;
             }            
-        }       
+        }
+        
+        public IEnumerable<PurchasesXCommoditiesModel> GetByPurchaseId(int id)
+        {
+            try
+            {
+                using (var db = new MySqlConnection(PecanContext.ConnectionString()))
+                {
+                    var mySql = "SELECT px.*, p.Id, p.PurchaseDate, p.Total, s.*, c.Id, c.CommodityName, c.CodBar, c.CostPrice, c.PricePublic, st.* " +
+                                "FROM PurchasesXCommodities px " +
+                                "LEFT JOIN Purchases p ON p.Id = px.IdPurchase " +
+                                "LEFT JOIN Suppliers s ON s.Id = p.IdSupplier " +
+                                "LEFT JOIN Commodities c ON c.Id = px.IdCommodities " +
+                                "LEFT JOIN Stock st ON st.Id = c.IdStock" +
+                                $"WHERE PurchasesXCommodities.IdPurchase = {id}";
+                    var results = db.Query<PurchasesXCommoditiesModel, PurchaseModel, SupplierModel, CommodityModel, StockModel, PurchasesXCommoditiesModel>(
+                        mySql,
+                        (px, p, s, c, st) =>
+                        {
+                            px.Purchase = p;
+                            px.Commodity = c;
+                            if (p != null)
+                            {
+                                p.Supplier = s;
+                            }
+                            if (c != null)
+                            {
+                                c.Stock = st;
+                            }
+                            return px;
+                        },
+                        splitOn: "Id, Id, Id, Id"
+                    );
+                    return results.ToList();
+                }
+            }
+            catch (Exception)
+            {
+                return new List<PurchasesXCommoditiesModel>();
+            }
+        }
     }
 }
