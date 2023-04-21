@@ -1,0 +1,87 @@
+﻿<Window x:Class="Pecan.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Pecan"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <Border>
+            <Grid Background="Black" Opacity="0.30"></Grid>
+        </Border>
+        <Button MaxWidth="180" MaxHeight="80" FontSize="26" FontFamily="Helvetica" Click="NewSale_Click" BorderBrush="White" Margin="0,23,0,186" TabIndex="1">
+            <Button.Background>
+                <SolidColorBrush Color="Chocolate"></SolidColorBrush>
+            </Button.Background>
+            <TextBlock>Nueva venta</TextBlock>
+            <Button.Style>
+                <Style TargetType="Button">
+                    <Style.Triggers>
+                        <EventTrigger RoutedEvent="MouseEnter">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <ColorAnimation Storyboard.TargetProperty="Background.Color"
+                                            To="White"
+                                            Duration="0:0:0.3"/>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                        <EventTrigger RoutedEvent="MouseLeave">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <ColorAnimation Storyboard.TargetProperty="Background.Color"
+                                            To="Chocolate"
+                                            Duration="0:0:0.9"/>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+        </Button>
+
+        <Button MaxWidth="180" MaxHeight="80" FontSize="26" FontFamily="Helvetica" Click="ListSale_Click" BorderBrush="White" Margin="-19,165,-22,72" RenderTransformOrigin="0.5,0.5">
+            <Button.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform AngleX="-0.217"/>
+                    <RotateTransform/>
+                    <TranslateTransform X="-0.746"/>
+                </TransformGroup>
+            </Button.RenderTransform>
+            <Button.Background>
+                <SolidColorBrush Color="Chocolate"></SolidColorBrush>
+            </Button.Background>
+            <TextBlock>Lista de ventas</TextBlock>
+            <Button.Style>
+                <Style TargetType="Button">
+                    <Style.Triggers>
+                        <EventTrigger RoutedEvent="MouseEnter">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <ColorAnimation Storyboard.TargetProperty="Background.Color"
+                                            To="White"
+                                            Duration="0:0:0.3"/>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                        <EventTrigger RoutedEvent="MouseLeave">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <ColorAnimation Storyboard.TargetProperty="Background.Color"
+                                            To="Chocolate"
+                                            Duration="0:0:0.9"/>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+        </Button>
+
+        <Grid.Background>
+            <ImageBrush ImageSource="Images/fondopecan.jpg" Stretch="Fill"/>
+        </Grid.Background>
+    </Grid>
+</Window>
