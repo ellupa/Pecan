@@ -8,16 +8,12 @@ using System.Threading.Tasks;
 
 namespace Pecan.Entities
 {
-    public class SaleXCommodityModel
+    public class SuppliersXCommoditiesModel
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key]
         public int Id { get; set; }
-
-        public float QuantityOfProduct { get; set; }
-
-        public SaleModel? Sales { get; set; }
-
         public CommodityModel? Commodities { get; set; }
+        public SupplierModel? Suppliers { get; set; }
     }
 }
