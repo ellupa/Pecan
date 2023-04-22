@@ -17,5 +17,7 @@ namespace Pecan.Entities
         public SupplierModel? Supplier { get; set; }
         public float Total { get; set; }
 
+        public List<PurchasesXCommoditiesModel>? PurchasesXCommodities { get; set; }
+
     }
 }

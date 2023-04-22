@@ -75,7 +75,7 @@ namespace Pecan.Data.DataModel
                 using (var db = new MySqlConnection(PecanContext.ConnectionString()))
                 {
                     var mySql = "SELECT Commodities.* Stock.* FROM Commodities" +
-                        "INNER JOIN Stock ON Stock.Id = CommodityName.IdStock";
+                        "INNER JOIN Stock ON Stock.Id = Commodities.IdStock";
                     var results = db.Query<CommodityModel, StockModel, CommodityModel>(mySql,
                         (commodities,stock) =>
                         {
@@ -111,7 +111,7 @@ namespace Pecan.Data.DataModel
                 using (var db = new MySqlConnection(PecanContext.ConnectionString()))
                 {
                     var mySql = "SELECT Commodities.* Stock.* FROM Commodities" +
-                        "INNER JOIN Stock ON Stock.Id = CommodityName.IdStock" +
+                        "INNER JOIN Stock ON Stock.Id = Commodities.IdStock" +
                         $"WHERE {id} = id";
                     CommodityModel results = (CommodityModel)db.Query<CommodityModel, StockModel, CommodityModel>(mySql,
                         (commodities, stock) =>
@@ -148,7 +148,7 @@ namespace Pecan.Data.DataModel
                 using (var db = new MySqlConnection(PecanContext.ConnectionString()))
                 {
                     var mySql = "SELECT Commodities.* Stock.* FROM Commodities" +
-                        "INNER JOIN Stock ON Stock.Id = CommodityName.IdStock" +
+                        "INNER JOIN Stock ON Stock.Id = Commodities.IdStock" +
                         $"WHERE {code} = CodeBar";
                     CommodityModel results = (CommodityModel)db.Query<CommodityModel, StockModel, CommodityModel>(mySql,
                         (commodities, stock) =>

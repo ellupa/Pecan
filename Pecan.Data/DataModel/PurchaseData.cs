@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Pecan.Data.DataModel
 {
-    internal class PurchaseData : ICrd<PurchaseModel>, IModify<PurchaseModel>
+    public class PurchaseData : IModify<PurchaseModel>
     {
         public string Add(PurchaseModel model)
         {
@@ -55,74 +55,120 @@ namespace Pecan.Data.DataModel
             }
         }
 
-        public IEnumerable<PurchaseModel> GetAll()
+       /* public IEnumerable<PurchasesXCommoditiesModel> GetAll()
         {
+
             try
             {
                 using (var db = new MySqlConnection(PecanContext.ConnectionString()))
                 {
-                    var mySql = "SELECT Purchases.*, Suppliers.* FROM Purchases" +
-                        "INNER JOIN Suppliers ON Suppliers.Id = Purchases.IdStock";
-                    var results = db.Query<PurchaseModel, SupplierModel, PurchaseModel>(mySql,
-                        (purchase, supplier) =>
+                    var mySql = "SELECT px.*, p.Id, p.PurchaseDate, p.Total, s.*, c.Id, c.CommodityName, c.CodBar, c.CostPrice, c.PricePublic, st.* " +
+                                "FROM PurchasesXCommodities px " +
+                                "INNER JOIN Purchases p ON p.Id = px.IdPurchase " +
+                                "INNER JOIN Suppliers s ON s.Id = p.IdSupplier " +
+                                "INNER JOIN Commodities c ON c.Id = px.IdCommodities " +
+                                "INNER JOIN Stock st ON st.Id = c.IdStock";
+                    var results = db.Query<PurchasesXCommoditiesModel, PurchaseModel, SupplierModel, CommodityModel, StockModel, PurchasesXCommoditiesModel>(
+                        mySql,
+                        (px, p, s, c, st) =>
                         {
-                            PurchaseModel purchaseDetails = new PurchaseModel
+                            px.Purchase = p;
+                            px.Commodity = c;
+                            if (p != null)
                             {
-                                Id = purchase.Id,
-                                PurchaseDate = purchase.PurchaseDate,
-                                Supplier = supplier,
-                                Total = purchase.Total                               
-                            };
-                            return purchaseDetails;
+                                p.Supplier = s;
+                            }
+                            if (c != null)
+                            {
+                                c.Stock = st;
+                            }
+                            return px;
                         },
-                        splitOn: "Id, Id"
+                        splitOn: "Id, Id, Id, Id"
                     );
                     return results.ToList();
-                    
                 }
             }
             catch (Exception)
             {
-                List<PurchaseModel> _lstPurchase = new List<PurchaseModel>();
-                return _lstPurchase;
+                return new List<PurchasesXCommoditiesModel>();
+            }
+        }
+       */
+        public List<PurchaseModel> GetAll()
+        {
+            using (var connection = new MySqlConnection(PecanContext.ConnectionString()))
+            {
+                string sql = @"
+                    SELECT p.*, c.*
+                    FROM Purchases p
+                    INNER JOIN PurchasesXCommodities cxp ON cxp.IdPurchase = Purchases.Id
+                    INNER JOIN Productos p ON p.Id = cxp.IdCommodities";
+
+                var comprasDict = new Dictionary<int, Compra>();
+
+                var compras = connection.Query<Compra, Producto, Compra>(
+                    sql,
+                    (compra, producto) =>
+                    {
+                        Compra compraEntry;
+
+                        if (!comprasDict.TryGetValue(compra.CompraId, out compraEntry))
+                        {
+                            compraEntry = compra;
+                            compraEntry.Productos = new List<Producto>();
+                            comprasDict.Add(compraEntry.CompraId, compraEntry);
+                        }
+
+                        compraEntry.Productos.Add(producto);
+                        return compraEntry;
+                    },
+                    splitOn: "ProductoId"
+                ).Distinct().ToList();
+
+                return compras;
             }
         }
 
-        public PurchaseModel GetById(int id)
+
+        public IEnumerable<PurchasesXCommoditiesModel> GetById(int id)
         {
             try
-            {            
-                using (var db = new MySqlConnection(PecanContext.ConnectionString()))
-                {
-                    var mySql = "SELECT Purchases.*, Suppliers.* FROM Purchases" +
-                        "INNER JOIN Suppliers ON Suppliers.Id = Purchases.IdStock" +
-                        $"WHERE Purchases.Id = {id}";
-                    var results = db.Query<PurchaseModel, SupplierModel, PurchaseModel>(mySql,
-                        (purchase, supplier) =>
-                        {
-                            PurchaseModel purchaseDetails = new PurchaseModel
-                            {
-                                Id = purchase.Id,
-                                PurchaseDate = purchase.PurchaseDate,
-                                Supplier = supplier,
-                                Total = purchase.Total
-                            };
-                            return purchaseDetails;
-                        },
-                        splitOn: "Id, Id"
-                    ).FirstOrDefault();
-                    if (results != null)                
-                        return results;
-                    return new PurchaseModel();
-                }
-            }
-            catch (Exception)
             {
 
-                return new PurchaseModel();
-            }
-
-
+                using (var db = new MySqlConnection(PecanContext.ConnectionString()))
+                {
+                    var mySql = "SELECT px.*, p.Id, p.PurchaseDate, p.Total, s.*, c.Id, c.CommodityName, c.CodBar, c.CostPrice, c.PricePublic, st.* " +
+                                "FROM PurchasesXCommodities px " +
+                                "INNER JOIN Purchases p ON p.Id = px.IdPurchase " +
+                                "INNER JOIN Suppliers s ON s.Id = p.IdSupplier " +
+                                "INNER JOIN Commodities c ON c.Id = px.IdCommodities " +
+                                "INNER JOIN Stock st ON st.Id = c.IdStock" +
+                                $"WHERE PurchasesXCommodities.Id = {id}";
+                    var results = db.Query<PurchasesXCommoditiesModel, PurchaseModel, SupplierModel, CommodityModel, StockModel, PurchasesXCommoditiesModel>(
+                        mySql,
+                        (px, p, s, c, st) =>
+                        {
+                            px.Purchase = p;
+                            px.Commodity = c;
+                            if (p != null)
+                            {
+                                p.Supplier = s;
+                            }
+                            if (c != null)
+                            {
+                                c.Stock = st;
+                            }
+                            return px;
+                        },
+                        splitOn: "Id, Id, Id, Id"
+                    );
+                    return results.ToList();
+                }
+            }catch (Exception)
+            {
+                return new List<PurchasesXCommoditiesModel>();
+            }            
         }
         public string Update(PurchaseModel model)
         {

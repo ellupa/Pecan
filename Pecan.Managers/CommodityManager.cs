@@ -21,27 +21,33 @@ namespace Pecan.Managers
 
         public IEnumerable<CommodityModel> GetAll()
         {
-            if (data.GetAll().Any())
-                return data.GetAll();
+            var result = data.GetAll();
+            if (result.Any())
+                return result;
             else
                 throw new Exception("No hay Productos Cargados");
         }
 
         public CommodityModel GetById(int id)
         {
-            if (data.GetById(id) != null)
-                return data.GetById(id);
+            var result = data.GetById(id);
+            if (result != null)
+                return result;
             else
                 throw new Exception("No se encontro el producto");
         }
 
         public CommodityModel GetCommodityByCodeBar(string code)
         {
+            
             if (Regex.IsMatch(code, @"^[0-9]+$"))
-                if (data.GetCommodityByCodeBar(code) != null)
-                    return data.GetCommodityByCodeBar(code);
+            {
+                var result = data.GetCommodityByCodeBar(code);
+                if (result != null)
+                    return result;
                 else
                     throw new Exception("No se encontro el producto por el codigo de barras");
+            }
             else
                 throw new Exception("Solo se permiten numeros para buscar por codigo");
         }
