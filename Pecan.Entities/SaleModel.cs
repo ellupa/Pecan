@@ -15,5 +15,7 @@ namespace Pecan.Entities
         public int Id { get; set; }
         public DateTime DateOfSale { get; set; }
         public float Total { get; set; }
+
+        public List<SaleXCommodityModel> SalesXCommodities { get; set; }
     }
 }
