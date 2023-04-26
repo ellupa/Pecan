@@ -23,6 +23,7 @@ namespace Pecan.Views
         public SalesView()
         {
             InitializeComponent();
+            SaleDatePicker.SelectedDate = DateTime.Now;
         }
     }
 }

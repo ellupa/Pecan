@@ -12,7 +12,7 @@ namespace Pecan.Entities
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key]
-        public int Id { get; set; }
+        public int Id { get; set; }        
         public DateTime PurchaseDate { get; set; }
         public SupplierModel? Supplier { get; set; }
         public float Total { get; set; }
