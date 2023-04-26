@@ -4,6 +4,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 17.3.32922.545
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pecan", "Pecan\Pecan.csproj", "{CB094584-CA2B-4AD5-A8A4-F1BAA0DD4D27}"
+	ProjectSection(ProjectDependencies) = postProject
+		{7E3576DE-6A71-4F6E-8875-777D47504FEE} = {7E3576DE-6A71-4F6E-8875-777D47504FEE}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pecan.Data", "Pecan.Data\Pecan.Data.csproj", "{ABA2EF44-1EC6-48D7-A9B2-32ED57634A70}"
 EndProject

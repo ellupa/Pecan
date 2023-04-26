@@ -16,14 +16,39 @@
 
   <ItemGroup>
     <None Remove="fondopecan.jpg" />
+    <None Remove="Images\compras.png" />
+    <None Remove="Images\productos.png" />
+    <None Remove="Images\proveedores.png" />
+    <None Remove="Images\ventas.png" />
+    <None Remove="Images\ventas2.png" />
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Images\compras.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Images\fondopecan.jpg" />
+    <Resource Include="Images\productos.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\proveedores.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\ventas.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
 
   <ItemGroup>
     <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Pecan.Entities\Pecan.Entities.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Fonts\" />
   </ItemGroup>
 
 </Project>

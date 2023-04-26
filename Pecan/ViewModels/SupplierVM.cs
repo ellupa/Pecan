@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Pecan.ViewModels
 {
-    public class SaleViewModel
+    public class SupplierVM
     {
     }
 }

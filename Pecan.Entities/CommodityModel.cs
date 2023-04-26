@@ -19,6 +19,5 @@ namespace Pecan.Entities
         public float CostPrice { get; set; }
         public float PricePublic { get; set; }
         public StockModel? Stock { get; set; }
-                
     }
 }

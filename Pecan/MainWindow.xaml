@@ -3,85 +3,200 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Pecan"
+        xmlns:vm="clr-namespace:Pecan.ViewModels"
+        xmlns:Menu="clr-namespace:Pecan.Utils"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        SizeToContent="WidthAndHeight"
+        Title="Pecan" MinHeight="600" MinWidth="850"
+        AllowsTransparency="True"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None"
+        Background="Transparent"
+        >
+
+    <Window.DataContext>
+        <vm:NavigationVM />
+    </Window.DataContext>
+
     <Grid>
-        <Border>
-            <Grid Background="Black" Opacity="0.30"></Grid>
+        
+        <!-- Window Border -->
+
+        <Border Background="{StaticResource oliveBrush}"
+                CornerRadius="20"
+                BorderBrush="#51832D"
+                BorderThickness="5"
+                >
+
+            <Grid>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="228" />
+                    <ColumnDefinition Width="622" />
+                </Grid.ColumnDefinitions>
+
+                <!-- Sidebar Nav -->
+
+                <Grid HorizontalAlignment="Left"
+                  Width="228"
+                  >
+
+                    <Border Background="{StaticResource darkOliveBrush}"
+                        CornerRadius="20,0,0,20" />
+
+                    <StackPanel Height="400"
+                            Width="228"
+                            Margin="5,10,0,0"
+                            >
+
+                        <!-- Sales -->
+
+                        <Menu:Button Style="{StaticResource ButtonStyle}"
+                                 Command="{Binding SalesCommand}"
+                                 IsChecked="True"
+                                     Width="210"
+                                 >
+
+                            <Grid>
+
+                                <Image Source="Images/ventas.png"
+                                   Style="{StaticResource ImageStyle}"
+                                   />
+
+                                <TextBlock Text="Ventas"
+                                       Style="{StaticResource TextStyle}"
+                                       />
+
+                            </Grid>
+
+                        </Menu:Button>
+
+                        <!-- Purchases -->
+
+                        <Menu:Button Style="{StaticResource ButtonStyle}"
+                                 Command="{Binding PurchasesCommand}"
+                                     Width="210"
+                                 >
+
+                            <Grid>
+
+                                <Image Source="Images/compras.png"
+                                   Style="{StaticResource ImageStyle}"
+                                   />
+
+                                <TextBlock Text="Compras"
+                                       Style="{StaticResource TextStyle}"
+                                   />
+
+                            </Grid>
+
+                        </Menu:Button>
+
+                        <!-- Products -->
+
+                        <Menu:Button Style="{StaticResource ButtonStyle}"
+                                 Command="{Binding ProductsCommand}"
+                                     Width="210"
+                                 >
+
+                            <Grid>
+
+                                <Image Source="Images/productos.png"
+                                   Style="{StaticResource ImageStyle}"
+                                   />
+
+                                <TextBlock Text="Productos"
+                                       Style="{StaticResource TextStyle}"
+                                       />
+
+                            </Grid>
+
+                        </Menu:Button>
+
+                        <!-- Suppliers -->
+
+                        <Menu:Button Style="{StaticResource ButtonStyle}"
+                                 Command="{Binding SuppliersCommand}"
+                                 Width="210"
+                                 >
+
+                            <Grid>
+
+                                <Image Source="Images/proveedores.png"
+                                   Style="{StaticResource ImageStyle}"
+                                   />
+
+                                <TextBlock Text="Proveedores"
+                                       Style="{StaticResource TextStyle}"
+                                       />
+
+                            </Grid>
+
+                        </Menu:Button>
+
+                    </StackPanel>
+
+                </Grid>
+
+                <Grid Grid.Column="1">
+
+                    <Grid.RowDefinitions>
+                        <!--Control Buttons-->
+                        <RowDefinition Height="25"/>
+                        <!--Caption-->
+                        <RowDefinition Height="35" />
+                        <!--Child views-->
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+                    <!--Control Buttons-->
+                    <StackPanel x:Name="pnlControlButtons"
+                                Orientation="Horizontal"
+                                Grid.Row="0"
+                                FlowDirection="RightToLeft"
+                                Background="Transparent"
+                                Margin="0,0,10,0"
+                                MouseLeftButtonDown="pnlControlButtons_MouseLeftButtonDown"
+                                >
+                        <Button x:Name="btnClose"
+                                Style="{StaticResource ControlButtonStyle}"
+                                Click="btnClose_Click">
+                            <TextBlock Text="X" Foreground="White" />
+                        </Button>
+                    </StackPanel>
+
+                    <!--Caption / Title-->
+                    <Grid Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel Grid.Row="0"
+                                    Orientation="Horizontal"
+                                    VerticalAlignment="Center">
+                            <TextBlock Text="{Binding Title}"
+                                       Foreground="White"
+                                       FontSize="16"
+                                       FontFamily="Montserrat"
+                                       Margin="35,0,0,0"
+                                       FontWeight="Medium"
+                                       VerticalAlignment="Center"/>
+                        </StackPanel>
+                        
+                    </Grid>
+                    
+                    <!--Child Views-->
+                    <ContentControl x:Name="Pages"
+                                Content="{Binding CurrentView}" 
+                                Grid.Row="2"   
+                                Margin="25"/>
+
+                </Grid>
+
+            </Grid>
+
         </Border>
-        <Button MaxWidth="180" MaxHeight="80" FontSize="26" FontFamily="Helvetica" Click="NewSale_Click" BorderBrush="White" Margin="0,23,0,186" TabIndex="1">
-            <Button.Background>
-                <SolidColorBrush Color="Chocolate"></SolidColorBrush>
-            </Button.Background>
-            <TextBlock>Nueva venta</TextBlock>
-            <Button.Style>
-                <Style TargetType="Button">
-                    <Style.Triggers>
-                        <EventTrigger RoutedEvent="MouseEnter">
-                            <BeginStoryboard>
-                                <Storyboard>
-                                    <ColorAnimation Storyboard.TargetProperty="Background.Color"
-                                            To="White"
-                                            Duration="0:0:0.3"/>
-                                </Storyboard>
-                            </BeginStoryboard>
-                        </EventTrigger>
-                        <EventTrigger RoutedEvent="MouseLeave">
-                            <BeginStoryboard>
-                                <Storyboard>
-                                    <ColorAnimation Storyboard.TargetProperty="Background.Color"
-                                            To="Chocolate"
-                                            Duration="0:0:0.9"/>
-                                </Storyboard>
-                            </BeginStoryboard>
-                        </EventTrigger>
-                    </Style.Triggers>
-                </Style>
-            </Button.Style>
-        </Button>
-
-        <Button MaxWidth="180" MaxHeight="80" FontSize="26" FontFamily="Helvetica" Click="ListSale_Click" BorderBrush="White" Margin="-19,165,-22,72" RenderTransformOrigin="0.5,0.5">
-            <Button.RenderTransform>
-                <TransformGroup>
-                    <ScaleTransform/>
-                    <SkewTransform AngleX="-0.217"/>
-                    <RotateTransform/>
-                    <TranslateTransform X="-0.746"/>
-                </TransformGroup>
-            </Button.RenderTransform>
-            <Button.Background>
-                <SolidColorBrush Color="Chocolate"></SolidColorBrush>
-            </Button.Background>
-            <TextBlock>Lista de ventas</TextBlock>
-            <Button.Style>
-                <Style TargetType="Button">
-                    <Style.Triggers>
-                        <EventTrigger RoutedEvent="MouseEnter">
-                            <BeginStoryboard>
-                                <Storyboard>
-                                    <ColorAnimation Storyboard.TargetProperty="Background.Color"
-                                            To="White"
-                                            Duration="0:0:0.3"/>
-                                </Storyboard>
-                            </BeginStoryboard>
-                        </EventTrigger>
-                        <EventTrigger RoutedEvent="MouseLeave">
-                            <BeginStoryboard>
-                                <Storyboard>
-                                    <ColorAnimation Storyboard.TargetProperty="Background.Color"
-                                            To="Chocolate"
-                                            Duration="0:0:0.9"/>
-                                </Storyboard>
-                            </BeginStoryboard>
-                        </EventTrigger>
-                    </Style.Triggers>
-                </Style>
-            </Button.Style>
-        </Button>
-
-        <Grid.Background>
-            <ImageBrush ImageSource="Images/fondopecan.jpg" Stretch="Fill"/>
-        </Grid.Background>
     </Grid>
+    
 </Window>
