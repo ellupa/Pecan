@@ -6,11 +6,10 @@ using System.Threading.Tasks;
 
 namespace Pecan.Entities
 {
-    public class PurchasesXCommoditiesModel
+    public class PurchaseDetailsModel
     {
-        public int Id { get; set; }
         public PurchaseModel? Purchase { get; set; }
         public CommodityModel? Commodity { get; set; }
-        public float QuantityOfProducts { get; set; }
+        public PurchasesXCommoditiesModel? PurchaseXCommodity { get; set; }
     }
 }

@@ -1,20 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Pecan.Entities
 {
-    public class SupplierModel
+    public class SuppliersXCommoditiesModel
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key]
         public int Id { get; set; }
-        public string? SupplierName { get; set; }
-        public string? Tel { get; set; }
-        public string? Adress { get; set; }
+        public CommodityModel? Commodities { get; set; }
+        public SupplierModel? Suppliers { get; set; }
     }
 }

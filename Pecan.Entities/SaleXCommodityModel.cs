@@ -16,8 +16,8 @@ namespace Pecan.Entities
 
         public float QuantityOfProduct { get; set; }
 
-        public int IdSales { get; set; }
+        public SaleModel? Sales { get; set; }
 
-        public int IdCommodities { get; set; }
+        public CommodityModel? Commodities { get; set; }
     }
 }

@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace Pecan.Interface
 {
-    public interface IAddAList<T>
+    public interface ICrd<T>
     {
        string Add(T model);
        IEnumerable<T> GetAll();
        T GetById(int id);
-
+       string Delete(T model);
     }
 }
