@@ -55,7 +55,7 @@ namespace Pecan.Data.DataModel
             }
         }
 
-       /* public IEnumerable<PurchasesXCommoditiesModel> GetAll()
+        public IEnumerable<PurchasesXCommoditiesModel> GetAll()
         {
 
             try
@@ -94,41 +94,41 @@ namespace Pecan.Data.DataModel
                 return new List<PurchasesXCommoditiesModel>();
             }
         }
-       */
-        public List<PurchaseModel> GetAll()
-        {
-            using (var connection = new MySqlConnection(PecanContext.ConnectionString()))
-            {
-                string sql = @"
-                    SELECT p.*, c.*
-                    FROM Purchases p
-                    INNER JOIN PurchasesXCommodities cxp ON cxp.IdPurchase = Purchases.Id
-                    INNER JOIN Productos p ON p.Id = cxp.IdCommodities";
 
-                var comprasDict = new Dictionary<int, Compra>();
+        //public List<PurchaseModel> GetAll()
+        //{
+        //    using (var connection = new MySqlConnection(PecanContext.ConnectionString()))
+        //    {
+        //        string sql = @"
+        //            SELECT p.*, c.*
+        //            FROM Purchases p
+        //            INNER JOIN PurchasesXCommodities cxp ON cxp.IdPurchase = Purchases.Id
+        //            INNER JOIN Productos p ON p.Id = cxp.IdCommodities";
 
-                var compras = connection.Query<Compra, Producto, Compra>(
-                    sql,
-                    (compra, producto) =>
-                    {
-                        Compra compraEntry;
+        //        var comprasDict = new Dictionary<int, PurchaseModel>();
 
-                        if (!comprasDict.TryGetValue(compra.CompraId, out compraEntry))
-                        {
-                            compraEntry = compra;
-                            compraEntry.Productos = new List<Producto>();
-                            comprasDict.Add(compraEntry.CompraId, compraEntry);
-                        }
+        //        var compras = connection.Query<PurchaseModel, CommodityModel, PurchaseModel>(
+        //            sql,
+        //            (compra, commodity) =>
+        //            {
+        //                PurchaseModel compraEntry;
 
-                        compraEntry.Productos.Add(producto);
-                        return compraEntry;
-                    },
-                    splitOn: "ProductoId"
-                ).Distinct().ToList();
+        //                if (!comprasDict.TryGetValue(compra.Id, out compraEntry))
+        //                {
+        //                    compraEntry = compra;
+        //                    compraEntry.PurchasesXCommodities = new List<PurchasesXCommoditiesModel>();
+        //                    comprasDict.Add(compraEntry.Id, compraEntry);
+        //                }
 
-                return compras;
-            }
-        }
+        //                compraEntry.PurchasesXCommodities.Add(commodity);
+        //                return compraEntry;
+        //            },
+        //            splitOn: "ProductoId"
+        //        ).Distinct().ToList();
+
+        //        return compras;
+        //    }
+        //}
 
 
         public IEnumerable<PurchasesXCommoditiesModel> GetById(int id)

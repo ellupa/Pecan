@@ -18,7 +18,7 @@ namespace Pecan.Data.DataModel
             {
                 using (var db = new MySqlConnection(PecanContext.ConnectionString()))
                 {
-                    var mySql = $"INSERT INTO Suppliers(SupplierName, Tel, Direction)Values('{supplier.SupplierName}','{supplier.Tel}','{supplier.Direction}')";
+                    var mySql = $"INSERT INTO Suppliers(SupplierName, Tel, Direction)Values('{supplier.SupplierName}','{supplier.Tel}','{supplier.Adress}')";
                     db.Execute(mySql);
                 }
                 return "Se guardo correctamente el proveedor";
@@ -97,7 +97,7 @@ namespace Pecan.Data.DataModel
             {
                 using (var db = new MySqlConnection(PecanContext.ConnectionString()))
                 {
-                    var mySql = $"UPDATE Stock SET SupplierName = {supplier.SupplierName}, Tel = {supplier.Tel}, Direction = {supplier.Direction} WHERE Id = {supplier.Id}";
+                    var mySql = $"UPDATE Stock SET SupplierName = {supplier.SupplierName}, Tel = {supplier.Tel}, Direction = {supplier.Adress} WHERE Id = {supplier.Id}";
                     var rowsAffected = db.Execute(mySql);
                     if (rowsAffected > 0)
                     {
